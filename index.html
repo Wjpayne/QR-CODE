@@ -1,11 +1,150 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR-CODE</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team QR Cards</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+  <header class="site-header">
+    <div class="brand">
+      <div class="brand-mark">WF</div>
+      <div>
+        <div class="brand-name">Team QR Cards</div>
+        <div class="brand-subtitle">Whole Foods Team Member Utility</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div>
+        
+        <h1>Create your QR cards</h1>
+        <p class="hero-text">
+          Enter the information below to create printable QR codes.
+          Everything is generated locally in your browser.
+        </p>
+      </div>
+    </section>
+
+    <section class="generator-card">
+      <div class="section-heading">
+        <h2>Generate QR Codes</h2>
+        <span class="local-badge">LOCAL ONLY</span>
+      </div>
+
+      <form id="qrForm">
+        <div class="field">
+          <label for="wholeFoodsId">Whole Foods ID</label>
+          <div class="input-wrap">
+            <span class="input-icon">●</span>
+            <input
+              id="wholeFoodsId"
+              name="wholeFoodsId"
+              type="text"
+              autocomplete="off"
+              placeholder="Enter Whole Foods ID"
+              required
+            >
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">◆</span>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="new-password"
+              placeholder="Enter password"
+              required
+            >
+            <button type="button" class="show-password" id="togglePassword">
+              Show
+            </button>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="primary-button" type="submit">
+            <span class="button-icon">▣</span>
+            Create QR Codes
+          </button>
+          <button class="secondary-button" type="button" id="clearButton">
+            Clear
+          </button>
+        </div>
+      </form>
+
+      <div class="privacy-note">
+        <strong>Privacy:</strong> Values are processed in your browser only.
+        This page does not save your ID or password.
+      </div>
+    </section>
+
+    <section id="results" class="results hidden">
+      <div class="results-heading">
+        <div>
+          <p class="eyebrow">READY TO PRINT</p>
+          <h2>Your QR cards</h2>
+        </div>
+        <button class="print-all" id="printAll">Print Both Cards</button>
+      </div>
+
+      <div class="qr-grid">
+        <article class="qr-card" id="idCard">
+          <div class="card-top">
+            <span class="type-label">WHOLE FOODS ID</span>
+            <span class="card-icon user-icon" aria-label="User">●</span>
+          </div>
+
+          <h3>Team Member ID</h3>
+
+          <div class="qr-frame">
+            <div id="idQr"></div>
+            <span class="qr-corner-icon user-corner" aria-hidden="true">●</span>
+          </div>
+
+          <p class="encoded-value" id="idValue"></p>
+
+          <button class="print-card" data-card="idCard">
+            Print ID Card
+          </button>
+        </article>
+
+        <article class="qr-card" id="passwordCard">
+          <div class="card-top">
+            <span class="type-label">PASSWORD</span>
+            <span class="card-icon key-icon" aria-label="Key">◆</span>
+          </div>
+
+          <h3>Team Member Password</h3>
+
+          <div class="qr-frame">
+            <div id="passwordQr"></div>
+            <span class="qr-corner-icon key-corner" aria-hidden="true">◆</span>
+          </div>
+
+          <p class="encoded-value password-value" id="passwordValue"></p>
+
+          <button class="print-card" data-card="passwordCard">
+            Print Password Card
+          </button>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>QR codes are generated in your browser. No account information is stored by this page.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
