@@ -1,5 +1,4 @@
-
-  (function() {
+(function() {
     // Ensure QRCode is available from CDN
     if (typeof QRCode === 'undefined') {
       console.warn('QRCode library not loaded. Please check the CDN script tag.');
@@ -15,8 +14,6 @@
     const resultsSection = document.getElementById('results');
     const idQrContainer = document.getElementById('idQr');
     const passwordQrContainer = document.getElementById('passwordQr');
-    const idValueDisplay = document.getElementById('idValue');
-    const passwordValueDisplay = document.getElementById('passwordValue');
     const printAllBtn = document.getElementById('printAll');
     const printCardBtns = document.querySelectorAll('.print-card');
 
@@ -38,9 +35,6 @@
         passwordQRCodeInstance.clear();
         passwordQRCodeInstance = null;
       }
-      // Clear displayed values
-      idValueDisplay.textContent = '';
-      passwordValueDisplay.textContent = '';
       // Hide results section
       resultsSection.classList.add('hidden');
     }
@@ -70,7 +64,6 @@
             colorLight: '#ffffff',
             correctLevel: QRCode.CorrectLevel.H
           });
-          idValueDisplay.textContent = id.trim();
         } catch (e) {
           console.warn('Failed to generate ID QR:', e);
           idQrContainer.innerHTML = '<p style="color: #b91c1c;">Error generating QR</p>';
@@ -90,7 +83,6 @@
             colorLight: '#ffffff',
             correctLevel: QRCode.CorrectLevel.H
           });
-          passwordValueDisplay.textContent = password.trim();
         } catch (e) {
           console.warn('Failed to generate Password QR:', e);
           passwordQrContainer.innerHTML = '<p style="color: #b91c1c;">Error generating QR</p>';
@@ -141,6 +133,10 @@
       // Remove any print buttons from the clone
       const printButtons = cardClone.querySelectorAll('.print-card');
       printButtons.forEach(btn => btn.remove());
+      
+      // Remove any value display elements if they exist
+      const valueDisplays = cardClone.querySelectorAll('.encoded-value');
+      valueDisplays.forEach(el => el.remove());
 
       // Create a temporary container for printing
       const printWindow = window.open('', '_blank', 'width=600,height=600');
@@ -221,21 +217,6 @@
                 font-size: 1.1rem;
                 color: #9ca3af;
               }
-              .encoded-value {
-                font-size: 0.9rem;
-                text-align: center;
-                word-break: break-all;
-                background: #f3f6fa;
-                padding: 0.5rem;
-                border-radius: 12px;
-                color: #1f2a41;
-                margin: 0.75rem 0 0 0;
-                border: 1px solid #e5e9ef;
-              }
-              .password-value {
-                font-family: 'Courier New', monospace;
-                letter-spacing: 0.02em;
-              }
               .card-footer {
                 margin-top: 1rem;
                 font-size: 0.65rem;
@@ -274,6 +255,10 @@
       // Remove print buttons from clones
       idClone.querySelectorAll('.print-card').forEach(btn => btn.remove());
       passwordClone.querySelectorAll('.print-card').forEach(btn => btn.remove());
+      
+      // Remove any value display elements if they exist
+      idClone.querySelectorAll('.encoded-value').forEach(el => el.remove());
+      passwordClone.querySelectorAll('.encoded-value').forEach(el => el.remove());
 
       // Create a print window
       const printWindow = window.open('', '_blank', 'width=700,height=800');
@@ -357,21 +342,6 @@
                 font-size: 1.1rem;
                 color: #9ca3af;
               }
-              .encoded-value {
-                font-size: 0.9rem;
-                text-align: center;
-                word-break: break-all;
-                background: #f3f6fa;
-                padding: 0.5rem;
-                border-radius: 12px;
-                color: #1f2a41;
-                margin: 0.75rem 0 0 0;
-                border: 1px solid #e5e9ef;
-              }
-              .password-value {
-                font-family: 'Courier New', monospace;
-                letter-spacing: 0.02em;
-              }
               .footer-print {
                 margin-top: 2rem;
                 font-size: 0.7rem;
@@ -442,13 +412,8 @@
       printBothCards();
     });
 
-    // Optional: Clear results if user clicks outside? Not needed.
-
     // --- Initial state: ensure results hidden ---
     resultsSection.classList.add('hidden');
-
-    // --- Handle edge case: if password field has value, toggle button text ---
-    // Not needed initially.
 
     console.log('Team QR Cards script initialized.');
   })();
