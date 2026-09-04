@@ -507,3 +507,8 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+.encoded-value {
+  display: none !important;
+  
+}
